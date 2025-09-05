@@ -23,14 +23,14 @@ entities = {
         "PK: image_id", "title", "description", "image_url" #them bang gallery
     ],
     "Tickets": [
-        "PK: ticket_id", "date", "price"
+        "PK: ticket_id", "FK: zone_id","weekday_price", "weekend_price", "description"
     ],
     "Bookings": [
-        "PK: booking_id", "FK: user_id", "booking_code", "guest_name", "guest_email", "guest_phone", "total_price", "status", "created_at" #khong can guest info (vi co user_id)
+        "PK: booking_id", "FK: user_id", "booking_code", "guest_name", "guest_email", "guest_phone", "discount_total", "grand_total", "subtotal", "status", "created_at" #khong can guest info (vi co user_id)
     ],
     "BookingDetails": [
-        "PK: booking_detail_id", "FK: booking_id", "FK: ticket_id", "using_date",
-        "quantity", "unit_price", "total_price"
+        "PK: booking_detail_id", "FK: booking_id", "FK: ticket_id", "ticket_code","using_date",
+        "quantity", "unit_price", "discount_rate", "line_total"
     ],
     "Payments": [ #them bang payment
         "PK: payment_id", "FK: booking_id", "payment_method",
@@ -51,6 +51,7 @@ for entity, fields in entities.items():
 relations = [
     ("Zones", "Attractions", "1", "N"),
     ("Zones", "Restaurants", "1", "N"),
+    ("Zones", "Tickets", "1", "N"),
     ("Users", "Bookings", "1", "N"),
     ("Bookings", "BookingDetails", "1", "N"),
     ("Tickets", "BookingDetails", "1", "N"),
